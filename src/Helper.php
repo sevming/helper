@@ -2,7 +2,7 @@
 
 namespace Sevming\Helper;
 
-use Sevming\Support\Traits\{
+use Sevming\Helper\Traits\{
     DataProcessTrait, DateTimeTrait, FilesystemTrait, CoordinateTrait
 };
 
