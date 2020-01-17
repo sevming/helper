@@ -341,4 +341,62 @@ trait DataProcessTrait
 
         return false;
     }
+
+    /**
+     * Convert string to snake case.
+     *
+     * @param        $data
+     * @param string $delimiter
+     *
+     * @return string|array
+     */
+    public static function convertSnake($data, string $delimiter = '_')
+    {
+        $handle = function ($str) use ($delimiter) {
+            if (!ctype_lower($str)) {
+                $str = preg_replace('/\s+/u', '', ucwords($str));
+                $str = mb_strtolower(preg_replace('/(.)(?=[A-Z])/u', '$1' . $delimiter, $str), 'UTF-8');
+            }
+
+            return $str;
+        };
+
+        if (is_string($data)) {
+            return $handle($data);
+        }
+
+        $result = [];
+        foreach ($data as $key => $value) {
+            $result[$handle($key)] = $value;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Convert string to camel case.
+     *
+     * @param        $data
+     * @param string $delimiter
+     *
+     * @return string|array
+     */
+    public static function convertCamel($data, string $delimiter = '_')
+    {
+        $handle = function ($str) use ($delimiter) {
+            $str = ucwords(str_replace($delimiter, ' ', $str));
+            return lcfirst(str_replace(' ', '', $str));
+        };
+
+        if (is_string($data)) {
+            return $handle($data);
+        }
+
+        $result = [];
+        foreach ($data as $key => $value) {
+            $result[$handle($key)] = $value;
+        }
+
+        return $result;
+    }
 }
