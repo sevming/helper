@@ -367,7 +367,11 @@ trait DataProcessTrait
 
         $result = [];
         foreach ($data as $key => $value) {
-            $result[$handle($key)] = $value;
+            if (is_array($value)) {
+                $result[$key] = self::convertSnake($value, $delimiter);
+            } else {
+                $result[$handle($key)] = $value;
+            }
         }
 
         return $result;
@@ -394,7 +398,11 @@ trait DataProcessTrait
 
         $result = [];
         foreach ($data as $key => $value) {
-            $result[$handle($key)] = $value;
+            if (is_array($value)) {
+                $result[$key] = self::convertCamel($value, $delimiter);
+            } else {
+                $result[$handle($key)] = $value;
+            }
         }
 
         return $result;
