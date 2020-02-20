@@ -96,10 +96,10 @@ trait CoordinateTrait
     public static function bd09ToGcj02($lng, $lat)
     {
         $XPI = 3.14159265358979324 * 3000.0 / 180.0;
-        $lng = (double)$lng - 0.006;
-        $lat = (double)$lat - 0.0065;
-        $z = sqrt($lat * $lat + $lng * $lng) - 0.00002 * sin($lng * $XPI);
-        $theta = atan2($lng, $lat) - 0.000003 * cos($lat * $XPI);
+        $y = $lat - 0.006;
+        $x = $lng - 0.0065;
+        $z = sqrt($x * $x + $y * $y) - 0.00002 * sin($y * $XPI);
+        $theta = atan2($y, $x) - 0.000003 * cos($x * $XPI);
 
         return [
             'lat' => $z * sin($theta),
